@@ -1,17 +1,21 @@
 [
     {  
+        "osbbId" : 1,
         "name" : "Awesome", 
         "description": "description_1"
     },
     { 
+        "osbbId" : 2,
         "name": "MyHome", 
         "description": "description_2"
     },
     { 
+        "osbbId" : 3,
         "name": "Awful", 
         "description": "description_3"
     },
     { 
+        "osbbId" : 4,
         "name": "TheBestOSBB", 
         "description": "description_4"
     }

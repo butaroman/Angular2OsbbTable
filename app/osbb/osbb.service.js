@@ -9,14 +9,59 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var OsbbComponent = (function () {
-    function OsbbComponent() {
+var http_1 = require("@angular/http");
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/toPromise');
+var OsbbService = (function () {
+    function OsbbService(http) {
+        this.http = http;
+        this.deleteUrl = 'http://localhost:52430/myosbb/restful/osbb/id/';
+        this.postUrl = 'http://localhost:52430/myosbb/restful/osbb';
+        this.putUrl = 'http://localhost:52430/myosbb/restful/osbb';
+        this.tmpGetUrl = 'app/osbb/data.json'; //   DELETE ME
+        this.getUrl = 'http://localhost:52430/myosbb/restful/osbb';
     }
-    OsbbComponent = __decorate([
+    OsbbService.prototype.getAllOsbb = function () {
+        return this.http.get(this.getUrl)
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    OsbbService.prototype.addOsbb = function (osbb) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        return this.http.post(this.postUrl, JSON.stringify(osbb), { headers: headers })
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    OsbbService.prototype.editOsbb = function (osbb) {
+        console.log("OsbbService.editOsbb(osbb) ===> [id:" + osbb.osbbId + "  name:" + osbb.name + "          description:" + osbb.description + "]");
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        return this.http.put(this.putUrl, JSON.stringify(osbb), { headers: headers })
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    OsbbService.prototype.deleteOsbb = function (osbb) {
+        if (confirm("Are you sure?")) {
+            var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+            var url = " " + this.deleteUrl + "/" + osbb.osbbId;
+            console.log("URL:::::::::::::::::::::" + url);
+            return this.http.delete(url, { headers: headers })
+                .toPromise()
+                .then(function (res) { return osbb; })
+                .catch(this.handleError);
+        }
+    };
+    OsbbService.prototype.handleError = function (error) {
+        console.log('HandleError', error);
+        return Promise.reject(error.message || error);
+    };
+    OsbbService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], OsbbComponent);
-    return OsbbComponent;
+        __metadata('design:paramtypes', [http_1.Http])
+    ], OsbbService);
+    return OsbbService;
 }());
-exports.OsbbComponent = OsbbComponent;
+exports.OsbbService = OsbbService;
 //# sourceMappingURL=osbb.service.js.map

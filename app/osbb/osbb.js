@@ -1,6 +1,8 @@
 "use strict";
 var Osbb = (function () {
-    function Osbb() {
+    function Osbb(name, description) {
+        this.name = name;
+        this.description = description;
     }
     return Osbb;
 }());

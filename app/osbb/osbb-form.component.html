@@ -1,0 +1,14 @@
+<div class="ui segment form">
+    <div class="ui fluid action input">
+        <input type="text" name="name" placeholder="enter name"  #nameInput >
+        <input type="text" name="description" placeholder="enter description" #descriptionInput>
+        <button  class="btn btn-success btn-xs"><i class="fa fa-check" 
+                (click)="createOsbb(nameInput.value, descriptionInput.value); nameInput.value=''; descriptionInput.value=''">Add Osbb</i></button> 
+<br>
+        <input type="text" name="name" #updateNameInput value={{osbb.name}}>
+        <input type="text" name="description" #updateDescriptionInput value={{osbb.description}}>
+        <button class="btn btn-success btn-xs"><i class="fa fa-check" 
+                (click)="editOsbb(updateNameInput.value, updateDescriptionInput.value); updateNameInput.value=''; updateDescriptionInput.value=''">Edit Osbb</i></button> 
+               <!-- <button class="btn btn-success btn-xs"><i class="fa fa-check" (click)="onOsbbCreated(inp.value); inp.value=''">Add</i></button> -->
+    </div>
+</div>

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var osbb_component_1 = require('./osbb/osbb.component');
+var osbb_service_1 = require('./osbb/osbb.service');
 var AppComponent = (function () {
     function AppComponent() {
     }
@@ -17,7 +18,8 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'todo-app',
             templateUrl: './app/app.component.html',
-            directives: [osbb_component_1.OsbbComponent]
+            directives: [osbb_component_1.OsbbComponent],
+            providers: [osbb_service_1.OsbbService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

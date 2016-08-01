@@ -12,23 +12,56 @@ var core_1 = require('@angular/core');
 var http_1 = require("@angular/http");
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/toPromise');
+var osbb_service_1 = require('./osbb.service');
+var osbb_form_component_1 = require('./osbb-form.component');
 var OsbbComponent = (function () {
-    function OsbbComponent(http) {
-        var _this = this;
-        this.http = http;
-        this.http.get('./app/osbb/data.json')
-            .map(function (response) { return response.json(); })
-            .subscribe(function (data) { _this.osbb = data; });
+    function OsbbComponent(osbbService) {
+        this.osbbService = osbbService;
+        this.osbbArr = [];
     }
+    OsbbComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.osbbService.getAllOsbb().then(function (osbbArr) { return _this.osbbArr = osbbArr; });
+    };
+    OsbbComponent.prototype.initUpdatedOsbb = function (osbb) {
+        this.updatedOsbb = osbb;
+    };
+    OsbbComponent.prototype.onOsbbCreated = function (osbb) {
+        var _this = this;
+        this.osbbService.addOsbb(osbb).then(function (osbb) { return _this.addOsbb(osbb); });
+    };
+    OsbbComponent.prototype.onOsbbEdited = function (osbb) {
+        this.osbbService.editOsbb(osbb);
+    };
+    OsbbComponent.prototype.onOsbbDeleted = function (osbb) {
+        var _this = this;
+        this.osbbService.deleteOsbb(osbb).then(function (osbb) { return _this.deleteOsbb(osbb); });
+    };
+    OsbbComponent.prototype.addOsbb = function (osbb) {
+        console.log("new OSBB [id:" + osbb.osbbId + "  name:" + osbb.name + " description:" + osbb.description + "]");
+        this.osbbArr.push(osbb);
+    };
+    OsbbComponent.prototype.deleteOsbb = function (osbb) {
+        var index = this.osbbArr.indexOf(osbb);
+        if (index > -1) {
+            this.osbbArr.splice(index, 1);
+        }
+    };
     OsbbComponent = __decorate([
         core_1.Component({
             selector: 'osbb',
             templateUrl: './app/osbb/osbb.component.html',
-            providers: [http_1.HTTP_PROVIDERS]
+            directives: [osbb_form_component_1.OsbbFormComponent],
+            providers: [http_1.HTTP_PROVIDERS, osbb_service_1.OsbbService]
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [osbb_service_1.OsbbService])
     ], OsbbComponent);
     return OsbbComponent;
 }());
 exports.OsbbComponent = OsbbComponent;
+/*
+   for(let i = 0; i < this.osbbArr.length;i++) {
+           console.log("OSBB [id:" + this.osbbArr[i].osbbId + "  name:" + this.osbbArr[i].name + "             description:" + this.osbbArr[i].description + "]");
+       }
+       */ 
 //# sourceMappingURL=osbb.component.js.map
