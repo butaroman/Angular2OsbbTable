@@ -43,15 +43,13 @@ var OsbbService = (function () {
             .catch(this.handleError);
     };
     OsbbService.prototype.deleteOsbb = function (osbb) {
-        if (confirm("Are you sure?")) {
-            var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-            var url = " " + this.deleteUrl + "/" + osbb.osbbId;
-            console.log("URL:::::::::::::::::::::" + url);
-            return this.http.delete(url, { headers: headers })
-                .toPromise()
-                .then(function (res) { return osbb; })
-                .catch(this.handleError);
-        }
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var url = " " + this.deleteUrl + "/" + osbb.osbbId;
+        console.log("URL:::::::::::::::::::::" + url);
+        return this.http.delete(url, { headers: headers })
+            .toPromise()
+            .then(function (res) { return osbb; })
+            .catch(this.handleError);
     };
     OsbbService.prototype.handleError = function (error) {
         console.log('HandleError', error);

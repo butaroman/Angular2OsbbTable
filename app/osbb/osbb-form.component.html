@@ -1,14 +1,47 @@
 <div class="ui segment form">
-    <div class="ui fluid action input">
+   <!-- <div class="ui fluid action input">
         <input type="text" name="name" placeholder="enter name"  #nameInput >
         <input type="text" name="description" placeholder="enter description" #descriptionInput>
         <button  class="btn btn-success btn-xs"><i class="fa fa-check" 
                 (click)="createOsbb(nameInput.value, descriptionInput.value); nameInput.value=''; descriptionInput.value=''">Add Osbb</i></button> 
 <br>
-        <input type="text" name="name" #updateNameInput value={{osbb.name}}>
+-->
+       <!-- <input type="text" name="name" #updateNameInput value={{osbb.name}}>
         <input type="text" name="description" #updateDescriptionInput value={{osbb.description}}>
         <button class="btn btn-success btn-xs"><i class="fa fa-check" 
-                (click)="editOsbb(updateNameInput.value, updateDescriptionInput.value); updateNameInput.value=''; updateDescriptionInput.value=''">Edit Osbb</i></button> 
+                (click)="editOsbb(updateNameInput.value, updateDescriptionInput.value); updateNameInput.value=''; updateDescriptionInput.value=''">Edit Osbb</i></button> -->
                <!-- <button class="btn btn-success btn-xs"><i class="fa fa-check" (click)="onOsbbCreated(inp.value); inp.value=''">Add</i></button> -->
-    </div>
+
+    <!-- create MODAL WINDOW -->
+    <button  class="btn btn-success btn-xs"><i class="fa fa-check" 
+                (click)="createModal.open()">Add Osbb</i></button>
+
+     <modal #createModal [keyboard]="false" [backdrop]="'static'">
+        <modal-header [show-close]="false">
+            <h4 class="modal-title">Creating new osbb</h4>
+        </modal-header>
+        <modal-body> 
+           <input type="text" name="name" placeholder="enter name"  #nameInput ><br><br>
+           <input type="text" name="description" placeholder="enter description" #descriptionInput>
+        </modal-body>
+        <modal-footer >
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="createModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="createOsbb(nameInput.value, descriptionInput.value);createModal.close()">Save</button>
+        </modal-footer>
+    </modal>
+
+    <!-- UPDATE MODAL WINDOW -->
+     <modal #updateModal [keyboard]="false" [backdrop]="'static'">
+        <modal-header [show-close]="false">
+            <h4 class="modal-title">{{osbb.name}}</h4>
+        </modal-header>
+        <modal-body> 
+           <input type="text" name="name" #updateNameInput value={{osbb.name}}><br><br>
+           <input type="text" name="description" #updateDescriptionInput value={{osbb.description}}>
+        </modal-body>
+        <modal-footer >
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="updateModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="editOsbb(updateNameInput.value, updateDescriptionInput.value);updateModal.close()">Save</button>
+        </modal-footer>
+    </modal>
 </div>

@@ -9,12 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var osbb_1 = require('./osbb');
 var OsbbFormComponent = (function () {
+    // openCreateModal() {
+    // this.createModal.open();
+    //}
+    // closeCreateModal() {
+    //  this.createModal.close();
+    // }
     function OsbbFormComponent() {
         this.created = new core_1.EventEmitter();
         this.updated = new core_1.EventEmitter();
     }
+    // @ViewChild('createModal')
+    // createModal:ModalComponent;
+    OsbbFormComponent.prototype.openUpdateModal = function () {
+        console.log("open MODAL WINDOW!!!");
+        this.updateModal.open();
+    };
+    OsbbFormComponent.prototype.closeUpdateModal = function () {
+        this.updateModal.close();
+    };
     OsbbFormComponent.prototype.ngOnInit = function () {
         if (this.osbb === undefined) {
             this.osbb = new osbb_1.Osbb("", "");
@@ -46,10 +62,15 @@ var OsbbFormComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], OsbbFormComponent.prototype, "osbb", void 0);
+    __decorate([
+        core_1.ViewChild('updateModal'), 
+        __metadata('design:type', ng2_bs3_modal_1.ModalComponent)
+    ], OsbbFormComponent.prototype, "updateModal", void 0);
     OsbbFormComponent = __decorate([
         core_1.Component({
             selector: 'osbb-form',
-            templateUrl: './app/osbb/osbb-form.component.html'
+            templateUrl: './app/osbb/osbb-form.component.html',
+            directives: [ng2_bs3_modal_1.MODAL_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [])
     ], OsbbFormComponent);

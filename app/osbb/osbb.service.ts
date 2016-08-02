@@ -43,15 +43,14 @@ export class OsbbService {
     }
 
     deleteOsbb(osbb:IOsbb): Promise<IOsbb> {
-        if(confirm("Are you sure?")) {
-            let headers = new Headers({ 'Content-Type': 'application/json' });
-            let url = ` ${this.deleteUrl}/${osbb.osbbId}`;
-            console.log("URL:::::::::::::::::::::" + url);
-            return this.http.delete(url,{headers})
-                        .toPromise()
-                        .then(res => osbb)
-                        .catch(this.handleError);
-        }
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = ` ${this.deleteUrl}/${osbb.osbbId}`;
+        console.log("URL:::::::::::::::::::::" + url);
+        return this.http.delete(url,{headers})
+                    .toPromise()
+                    .then(res => osbb)
+                    .catch(this.handleError);
+        
     }
 
     private handleError(error: any):Promise<any> {

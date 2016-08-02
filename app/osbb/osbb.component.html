@@ -17,13 +17,13 @@
                                         <td><a href="basic_table.html#">{{item.name}}</a></td>
                                         <td class="hidden-phone">{{item.description}}</td>
                                         <td>
-                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" (click)="initUpdatedOsbb(item)"></i></button>
+                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" (click)="initUpdatedOsbb(item); form.openUpdateModal()"></i></button>
                                             <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "  (click)="onOsbbDeleted(item)"></i></button>
                                         </td>
                                     </tr>
                               </tbody>
                               <div>
-                                  <osbb-form [osbb]="updatedOsbb" (created)="onOsbbCreated($event)" (updated)="onOsbbEdited($event)"></osbb-form>
+                                  <osbb-form [osbb]="updatedOsbb" (created)="onOsbbCreated($event)" (updated)="onOsbbEdited($event)" #form></osbb-form>                                
                               </div>
                           </table>
                       </div><!-- /content-panel -->

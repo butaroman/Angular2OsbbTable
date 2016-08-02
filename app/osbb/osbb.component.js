@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require("@angular/http");
+var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/toPromise');
 var osbb_service_1 = require('./osbb.service');
@@ -35,7 +36,9 @@ var OsbbComponent = (function () {
     };
     OsbbComponent.prototype.onOsbbDeleted = function (osbb) {
         var _this = this;
-        this.osbbService.deleteOsbb(osbb).then(function (osbb) { return _this.deleteOsbb(osbb); });
+        if (confirm("Are you sure?")) {
+            this.osbbService.deleteOsbb(osbb).then(function (osbb) { return _this.deleteOsbb(osbb); });
+        }
     };
     OsbbComponent.prototype.addOsbb = function (osbb) {
         console.log("new OSBB [id:" + osbb.osbbId + "  name:" + osbb.name + " description:" + osbb.description + "]");
@@ -51,7 +54,7 @@ var OsbbComponent = (function () {
         core_1.Component({
             selector: 'osbb',
             templateUrl: './app/osbb/osbb.component.html',
-            directives: [osbb_form_component_1.OsbbFormComponent],
+            directives: [osbb_form_component_1.OsbbFormComponent, ng2_bs3_modal_1.MODAL_DIRECTIVES],
             providers: [http_1.HTTP_PROVIDERS, osbb_service_1.OsbbService]
         }), 
         __metadata('design:paramtypes', [osbb_service_1.OsbbService])
@@ -59,9 +62,4 @@ var OsbbComponent = (function () {
     return OsbbComponent;
 }());
 exports.OsbbComponent = OsbbComponent;
-/*
-   for(let i = 0; i < this.osbbArr.length;i++) {
-           console.log("OSBB [id:" + this.osbbArr[i].osbbId + "  name:" + this.osbbArr[i].name + "             description:" + this.osbbArr[i].description + "]");
-       }
-       */ 
 //# sourceMappingURL=osbb.component.js.map

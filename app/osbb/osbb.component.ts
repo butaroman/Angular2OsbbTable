@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HTTP_PROVIDERS, Http} from "@angular/http";
 import {Observable} from 'rxjs/Observable';
+import { MODAL_DIRECTIVES} from 'ng2-bs3-modal/ng2-bs3-modal';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -11,10 +12,10 @@ import { OsbbFormComponent } from './osbb-form.component';
 @Component({
     selector: 'osbb',
     templateUrl: './app/osbb/osbb.component.html',
-    directives:[OsbbFormComponent],
+    directives:[OsbbFormComponent, MODAL_DIRECTIVES],
     providers: [HTTP_PROVIDERS, OsbbService]
 })
-export class OsbbComponent implements OnInit{ 
+export class OsbbComponent implements OnInit { 
     
     osbbArr:IOsbb[];
     updatedOsbb:IOsbb;
@@ -25,7 +26,6 @@ export class OsbbComponent implements OnInit{
 
     ngOnInit() {
         this.osbbService.getAllOsbb().then(osbbArr => this.osbbArr = osbbArr);
-       
     }
 
     private initUpdatedOsbb(osbb:IOsbb): void {
@@ -41,7 +41,9 @@ export class OsbbComponent implements OnInit{
     }
 
     onOsbbDeleted(osbb:IOsbb): void {
-       this.osbbService.deleteOsbb(osbb).then(osbb => this.deleteOsbb(osbb));
+        if(confirm("Are you sure?")) {
+            this.osbbService.deleteOsbb(osbb).then(osbb => this.deleteOsbb(osbb));
+        }
     }
 
     private addOsbb(osbb: IOsbb): void {
@@ -55,11 +57,4 @@ export class OsbbComponent implements OnInit{
             this.osbbArr.splice(index, 1);
          }
     }
-    
 }
-
-/*
-   for(let i = 0; i < this.osbbArr.length;i++) {
-           console.log("OSBB [id:" + this.osbbArr[i].osbbId + "  name:" + this.osbbArr[i].name + "             description:" + this.osbbArr[i].description + "]");
-       }
-       */
